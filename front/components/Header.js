@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Cart from './Cart';
 import Nav from './Nav';
+import Search from './Search';
 
 const Logo = styled.h1`
-  background: red;
+  background: orange;
   font-size: 4rem;
   margin-left: 2rem;
   position: relative;
@@ -20,7 +21,7 @@ const Logo = styled.h1`
 
 const HeaderStyles = styled.header`
   .bar {
-    border-bottom: 10px solid var(--black, black);
+    border-bottom: 10px solid blue;
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-space-between;
@@ -37,12 +38,12 @@ export default function Header() {
     <HeaderStyles>
       <div className="bar">
         <Logo>
-          <Link href="/">Sick Fits</Link>
+          <Link href="/">Celeben</Link>
         </Logo>
         <Nav />
       </div>
       <div className="sub-bar">
-        <p>Search</p>
+      <Search />
       </div>
       <Cart />
     </HeaderStyles>
