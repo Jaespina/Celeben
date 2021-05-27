@@ -14,6 +14,8 @@ import { extendGraphqlSchema } from './mutations';
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { CartItem } from './schemas/CartItem';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 
 const databaseURL =
   process.env.DATABASE_URL ||
@@ -61,6 +63,8 @@ export default withAuth(
       Product,
       ProductImage,
       CartItem,
+      OrderItem,
+      Order,
       // Schema items go here
     }),
     extendGraphqlSchema,
