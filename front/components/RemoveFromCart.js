@@ -7,7 +7,7 @@ const BigButton = styled.button`
   background: none;
   border: 0;
   &:hover {
-    color: var(--red);
+    color: blue;
     cursor: pointer;
   }
 `;
