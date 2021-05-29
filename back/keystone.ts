@@ -17,10 +17,9 @@ import { CartItem } from './schemas/CartItem';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
 import { Role } from './schemas/Role';
+import { permissionsList } from './schemas/field';
 
-const databaseURL =
-  process.env.DATABASE_URL ||
-  'mongodb://localhost/keystone-sicks-fits-tutorial';
+const databaseURL = process.env.DATABASE_URL;
 
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 30, // Time for CookiesAge
@@ -75,7 +74,7 @@ export default withAuth(
       // TODO change for roles
     },
     session: withItemData(statelessSessions(sessionConfig), {
-      User: `id`,
+      User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
     // TODO: Add data access
   })

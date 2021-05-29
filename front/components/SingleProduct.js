@@ -1,8 +1,8 @@
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import DisplayError from "./ErrorMessage";
-import Head from "next/head";
-import styled from "styled-components";
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import DisplayError from './ErrorMessage';
+import Head from 'next/head';
+import styled from 'styled-components';
 
 const ProductStyles = styled.div`
   display: grid;
@@ -32,6 +32,9 @@ const SINGLE_ITEM_QUERY = gql`
           publicUrlTransformed
         }
       }
+      user {
+        name
+      }
     }
   }
 `;
@@ -57,6 +60,11 @@ export default function SingleProduct({ id }) {
       <div className="details">
         <h2>{Product.name}</h2>
         <p>{Product.description}</p>
+        {Product?.user?.name !== 'null' ? (
+          <p>Sell by: {Product?.user?.name}</p>
+        ) : (
+          ''
+        )}
       </div>
     </ProductStyles>
   );

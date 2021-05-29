@@ -1,10 +1,11 @@
-import useForm from "../lib/useForm";
-import Form from "./styles/Form";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
-import DisplayError from "./ErrorMessage";
-import { ALL_PRODUCTS_QUERY } from "./Products";
-import Router from "next/router";
+import Router from 'next/router';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import useForm from '../lib/useForm';
+import Form from './styles/Form';
+import DisplayError from './ErrorMessage';
+import { ALL_PRODUCTS_QUERY } from './Products';
+import { PAGINATION_QUERY } from './Pagination';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -33,17 +34,20 @@ const CREATE_PRODUCT_MUTATION = gql`
 
 export default function CreateProduct() {
   const { inputs, handleChange, clearForm, resetForm } = useForm({
-    image: "",
-    name: "Initial",
+    image: '',
+    name: 'Initial',
     price: 32000,
-    description: "Initial Description",
+    description: 'Initial Description',
   });
 
   const [createProduct, { loading, error, data }] = useMutation(
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
-      refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
+      refetchQueries: [
+        { query: ALL_PRODUCTS_QUERY },
+        { query: PAGINATION_QUERY },
+      ],
     }
   );
 
@@ -55,6 +59,7 @@ export default function CreateProduct() {
         clearForm();
         Router.push({
           pathname: `/product/${res.data.createProduct.id}`,
+          query: { new: 'new' },
         });
       }}
     >

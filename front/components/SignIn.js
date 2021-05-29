@@ -1,9 +1,11 @@
-import Form from "./styles/Form";
-import useForm from "../lib/useForm";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
-import { CURRENT_USER_QUERY } from "./User";
-import ErrorMessage from "./ErrorMessage";
+import { useRouter } from 'next/router';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import Form from './styles/Form';
+import useForm from '../lib/useForm';
+
+import { CURRENT_USER_QUERY } from './User';
+import ErrorMessage from './ErrorMessage';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGIN_MUTATION($email: String!, $password: String!) {
@@ -25,21 +27,24 @@ const SIGNIN_MUTATION = gql`
 
 export default function SignIn() {
   const { inputs, handleChange, resetForm } = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [signinc, { data, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: inputs,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
+  const router = useRouter();
   async function handleSubmit(e) {
     e.preventDefault();
     await signinc();
-    resetForm();
+    router.push({
+      pathname: '/products',
+    });
   }
   const error =
     data?.authenticateUserWithPassword?.__typename ===
-    "UserAuthenticationWithPasswordFailure"
+    'UserAuthenticationWithPasswordFailure'
       ? data?.authenticateUserWithPassword
       : undefined;
   return (

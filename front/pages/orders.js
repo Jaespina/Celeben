@@ -49,7 +49,7 @@ export default function OrdersPage() {
       <OrderUl>
         {allOrders.map((order) => (
           <OrderItemStyles>
-            <Link href={`/order/${order.id}`}>
+            <Link key={order.id} href={`/order/${order.id}`}>
               <a>
                 <div className="images">
                   {order.item.map((item) => (

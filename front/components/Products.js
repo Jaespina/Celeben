@@ -18,6 +18,9 @@ const ALL_PRODUCTS_QUERY = gql`
           publicUrlTransformed
         }
       }
+      user {
+        name
+      }
     }
   }
 `;
