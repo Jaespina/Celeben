@@ -60,11 +60,7 @@ export default function SingleProduct({ id }) {
       <div className="details">
         <h2>{Product.name}</h2>
         <p>{Product.description}</p>
-        {Product?.user?.name !== 'null' ? (
-          <p>Sell by: {Product?.user?.name}</p>
-        ) : (
-          ''
-        )}
+        {Product?.user !== null ? <p>Sell by: {Product?.user?.name}</p> : ''}
       </div>
     </ProductStyles>
   );
