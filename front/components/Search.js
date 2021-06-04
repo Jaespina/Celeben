@@ -69,7 +69,7 @@ export default function Search() {
         <input
           {...getInputProps({
             type: 'search',
-            placeholder: 'Search for an item',
+            placeholder: 'Search for an item in this Dropdown',
             className: loading ? 'loading' : '',
             id: 'search',
           })}

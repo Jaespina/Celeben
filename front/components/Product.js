@@ -3,7 +3,6 @@ import ItemStyles from './styles/ItemStyles';
 import Title from './styles/Title';
 import PriceTag from './styles/PriceTag';
 import formatMoney from '../lib/formatMoney';
-import DeleteProduct from './DeleteProduct';
 import AddToCart from './AddToCart';
 
 export default function Product({ product }) {
@@ -19,19 +18,7 @@ export default function Product({ product }) {
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
       {product?.user !== null ? <p>Sell by: {product?.user?.name}</p> : ''}
-      {/*TODO: Add buttons to edit and delete items */}
       <div className="buttonList">
-        <Link
-          href={{
-            pathname: 'update',
-            query: {
-              id: product.id,
-            },
-          }}
-        >
-          Edit
-        </Link>
-        <DeleteProduct id={product.id}>Delete</DeleteProduct>
         <AddToCart id={product.id} />
       </div>
     </ItemStyles>

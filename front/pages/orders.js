@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import ErrorMessage from '../components/ErrorMessage';
 import OrderItemStyles from '../components/styles/OrderItemStyles';
 import formatMoney from '../lib/formatMoney';
+import { useUser } from '../components/User';
+import PleaseSignIn from '../components/PleaseSignIn';
 
 const USER_ORDERS_QUERY = gql`
   query USER_ORDERS_QUERY {
@@ -39,6 +41,8 @@ const OrderUl = styled.ul`
 
 export default function OrdersPage() {
   const { data, error, loading } = useQuery(USER_ORDERS_QUERY);
+  const user = useUser();
+  if (!user) return <PleaseSignIn>Not User Logged in</PleaseSignIn>;
   if (loading) return <p>Loading</p>;
   if (error) return <ErrorMessage error={error} />;
   const { allOrders } = data;

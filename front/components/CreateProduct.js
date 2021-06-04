@@ -1,11 +1,13 @@
 import Router from 'next/router';
 import gql from 'graphql-tag';
+import DefaultErrorPage from 'next/error';
 import { useMutation } from '@apollo/client';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
 import { ALL_PRODUCTS_QUERY } from './Products';
 import { PAGINATION_QUERY } from './Pagination';
+import { useUser } from './User';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -33,6 +35,12 @@ const CREATE_PRODUCT_MUTATION = gql`
 `;
 
 export default function CreateProduct() {
+  const user = useUser();
+
+  if (user?.role.name !== ('Admin' || 'ContentEditor' || 'Comercial')) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const { inputs, handleChange, clearForm, resetForm } = useForm({
     image: '',
     name: 'Initial',
@@ -63,6 +71,7 @@ export default function CreateProduct() {
         });
       }}
     >
+      <p>Sell a Product</p>
       <DisplayError error={error} />
       <fieldset disabled={loading} aria-busy={loading}>
         <label htmlFor="image">

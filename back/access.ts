@@ -18,6 +18,7 @@ const generatedPermissons = Object.fromEntries(
 export const permissions = {
   ...generatedPermissons,
 };
+
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
     if (!isSignedIn({ session })) {

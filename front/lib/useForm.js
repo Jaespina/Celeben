@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function useForm(initial = {}) {
   // create a state object for our inputs
@@ -18,10 +17,10 @@ export default function useForm(initial = {}) {
 
   function handleChange(e) {
     let { value, name, type } = e.target;
-    if (type === "number") {
+    if (type === 'number') {
       value = parseInt(value);
     }
-    if (type === "file") {
+    if (type === 'file') {
       [value] = e.target.files;
     }
     setInputs({
@@ -37,7 +36,7 @@ export default function useForm(initial = {}) {
 
   function clearForm() {
     const blankState = Object.fromEntries(
-      Object.entries(inputs).map(([key, value]) => [key, ""])
+      Object.entries(inputs).map(([key, value]) => [key, ''])
     );
     setInputs(blankState);
   }
